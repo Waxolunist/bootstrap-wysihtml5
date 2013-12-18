@@ -1,0 +1,29 @@
+<li>
+  <div class="bootstrap-wysihtml5-insert-label-modal modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal">&times;</a>
+          <h3>{{locale.label.insert}}</h3>
+        </div>
+        <div class="modal-body">
+          <select class="bootstrap-wysihtml5-insert-label-type">
+          	<option name="label-default" selected="selected">{{locale.label.default}}</option>
+          	<option name="label-primary">{{locale.label.primary}}</option>
+          	<option name="label-success">{{locale.label.success}}</option>
+          	<option name="label-info">{{locale.label.info}}</option>
+          	<option name="label-warning">{{locale.label.warning}}</option>
+          	<option name="label-danger">{{locale.label.danger}}</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-default" data-dismiss="modal">{{locale.label.cancel}}</a>
+          <a href="#" class="btn btn-primary" data-dismiss="modal">{{locale.label.insert}}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a class="btn {{#if options.size}}btn-{{options.size}}{{/if}} btn-default" data-wysihtml5-command="createLabel" title="{{locale.label.insert}}" tabindex="-1">
+    <span class="glyphicon glyphicon-tag"></span>
+  </a>
+</li>

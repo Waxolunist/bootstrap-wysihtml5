@@ -84,6 +84,10 @@
           if(key === 'image') {
             this.initInsertImage(toolbar);
           }
+
+          if(key === 'label') {
+            this.initInsertLabel(toolbar);
+          }
         }
       }
 
@@ -235,6 +239,59 @@
           return true;
         }
       });
+    },
+
+    initInsertLabel: function(toolbar) {
+      var self = this;
+      var insertLabelModal = toolbar.find('.bootstrap-wysihtml5-insert-label-modal');
+      var labelClass = insertLabelModal.find('.bootstrap-wysihtml5-insert-label-type');
+      var insertButton = insertLabelModal.find('a.btn-primary');
+      var initialValue = labelClass.find(':selected').attr('name');
+      var caretBookmark;
+
+      var insertLabel = function() {
+        var lClass = labelClass.find(':selected').attr('name');
+        var className = 'label ' + lClass;
+        labelClass.find('[name="' + lClass + '"]').attr('selected', 'selected');
+        
+        console.log(self.editor.composer.selection);
+        console.log(self.editor.composer.selection.getRange());
+
+        self.editor.currentView.element.focus();
+        if (caretBookmark) {
+          self.editor.composer.selection.setBookmark(caretBookmark);
+          caretBookmark = null;
+        }
+
+        self.editor.composer.commands.exec('formatInline', 'span', className, new RegExp('.+', "g"));
+      };
+
+      insertButton.click(insertLabel);
+
+      insertLabelModal.on('shown', function() {
+        labelClass.find(':selected').focus();
+      });
+
+      insertLabelModal.on('hide', function() {
+        self.editor.currentView.element.focus();
+      });
+
+      toolbar.find('a[data-wysihtml5-command=createLabel]').click(function() {
+        var activeButton = $(this).hasClass('wysihtml5-command-active');
+
+        if (!activeButton) {
+          self.editor.currentView.element.focus(false);
+          caretBookmark = self.editor.composer.selection.getBookmark();
+          insertLabelModal.appendTo('body').modal('show');
+          insertLabelModal.on('click.dismiss.modal', '[data-dismiss="modal"]', function(e) {
+            e.stopPropagation();
+          });
+          return false;
+        }
+        else {
+          return true;
+        }
+      });
     }
   };
 
@@ -286,6 +343,7 @@
     'html': false,
     'link': true,
     'image': true,
+    'label': true,
     events: {},
     parserRules: {
       classes: {

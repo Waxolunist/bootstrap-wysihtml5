@@ -47,6 +47,16 @@
           navy: "Azul Marino",
           blue: "Azul",
           orange: "Naranja"
-        }
+        },
+        label: {
+          insert : 'Insertar etiqueta',
+          default: 'Predeterminado',
+          primary: 'Primario',
+          success: 'Éxito',
+          info   : 'Información',
+          warning: 'Advertencia',
+          danger : 'Peligro',
+          cancel : 'Cancelar'
+        },
     };
 }(jQuery));
