@@ -47,6 +47,16 @@
       navy: 'Navy',
       blue: 'Blue',
       orange: 'Orange'
-    }
+    },
+    label: {
+      insert : 'Insert label',
+      default: 'Default',
+      primary: 'Primary',
+      success: 'Success',
+      info   : 'Info',
+      warning: 'Warning',
+      danger : 'Danger',
+      cancel : 'Cancel'
+    },
   };
 }(jQuery));

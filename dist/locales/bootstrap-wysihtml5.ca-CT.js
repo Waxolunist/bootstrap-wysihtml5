@@ -46,6 +46,16 @@
             navy: "Blau marí",
             blue: "Blau",
             orange: "Taronja"
-        }
+        },
+        label: {
+          insert : 'Afegir etiqueta',
+          default: 'Predeterminat',
+          primary: 'Primari',
+          success: 'Èxit',
+          info   : 'Informaciò',
+          warning: 'Advertència',
+          danger : 'Perill',
+          cancel : 'Cancel.lar'
+        },
     };
 }(jQuery));
