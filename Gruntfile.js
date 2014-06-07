@@ -13,7 +13,8 @@ module.exports = function(grunt) {
           node: false
         },
         files: {
-          'src/generated/templates.js': ['src/templates/*.hbs']
+          'src/generated/templates.js': ['src/templates/*.hbs'],
+          'src/generated/templates-fa.js': ['src/templates-fa/*.hbs']
         }
       }
     },
@@ -24,21 +25,38 @@ module.exports = function(grunt) {
       build: {
         files: {
           'dist/bootstrap3-wysihtml5.min.js': [
-            'src/generated/templates.js', 
+            'src/generated/templates.js',
             'src/bootstrap3-wysihtml5.js',
-            'src/generated/commands.js', 
+            'src/generated/commands.js',
             'src/locales/bootstrap-wysihtml5.en-US.js'
           ],
           'dist/bootstrap3-wysihtml5.all.min.js': [
             'components/wysihtml5x/dist/wysihtml5x-toolbar.js',
             'components/handlebars/handlebars.runtime.min.js',
-            'src/generated/templates.js', 
+            'src/generated/templates.js',
             'src/bootstrap3-wysihtml5.js',
-            'src/generated/commands.js', 
+            'src/generated/commands.js',
             'src/locales/bootstrap-wysihtml5.en-US.js'
           ],
           'dist/amd/bootstrap3-wysihtml5.all.min.js': [
             'dist/amd/bootstrap3-wysihtml5.all.js'
+          ],
+          'dist/bootstrap3-wysihtml5-fa.min.js': [
+            'src/generated/templates-fa.js',
+            'src/bootstrap3-wysihtml5.js',
+            'src/generated/commands.js',
+            'src/locales/bootstrap-wysihtml5.en-US.js'
+          ],
+          'dist/bootstrap3-wysihtml5-fa.all.min.js': [
+            'components/wysihtml5x/dist/wysihtml5x-toolbar.js',
+            'components/handlebars/handlebars.runtime.min.js',
+            'src/generated/templates-fa.js',
+            'src/bootstrap3-wysihtml5.js',
+            'src/generated/commands.js',
+            'src/locales/bootstrap-wysihtml5.en-US.js'
+          ],
+            'dist/amd/bootstrap3-wysihtml5-fa.all.min.js': [
+            'dist/amd/bootstrap3-wysihtml5-fa.all.js'
           ]
         }
       }
@@ -79,9 +97,9 @@ module.exports = function(grunt) {
         src: [
           'components/wysihtml5x/dist/wysihtml5x-toolbar.js',
           'components/handlebars/handlebars.runtime.min.js',
-          'src/generated/templates.js', 
+          'src/generated/templates.js',
           'src/bootstrap3-wysihtml5.js',
-          'src/generated/commands.js', 
+          'src/generated/commands.js',
           'src/locales/bootstrap-wysihtml5.en-US.js'
         ],
         dest: 'dist/bootstrap3-wysihtml5.all.js'
@@ -95,11 +113,32 @@ module.exports = function(grunt) {
           'src/bootstrap3-wysihtml5.js'
         ],
         dest: 'dist/amd/bootstrap3-wysihtml5.all.js'
+      },
+      "all-fa": {
+        src: [
+          'components/wysihtml5x/dist/wysihtml5x-toolbar.js',
+          'components/handlebars/handlebars.runtime.min.js',
+          'src/generated/templates-fa.js',
+          'src/bootstrap3-wysihtml5.js',
+          'src/generated/commands.js',
+          'src/locales/bootstrap-wysihtml5.en-US.js'
+        ],
+        dest: 'dist/bootstrap3-wysihtml5-fa.all.js'
+      },
+      "amd-fa": {
+        src: [
+          'dist/amd/wysihtml5.js',
+          'dist/amd/handlebars.runtime.amd.js',
+          'dist/amd/templates-fa.js',
+          'dist/amd/commands.js',
+          'src/bootstrap3-wysihtml5.js'
+        ],
+        dest: 'dist/amd/bootstrap3-wysihtml5-fa.all.js'
       }
     },
     wrap: {
       wysihtml5: {
-        src: ['components/wysihtml5x/dist/wysihtml5x-toolbar.js'], 
+        src: ['components/wysihtml5x/dist/wysihtml5x-toolbar.js'],
         dest: 'dist/amd/wysihtml5.js',
         options: {
           /*jshint multistr: true */
@@ -111,6 +150,13 @@ module.exports = function(grunt) {
       templates: {
         src: ['src/generated/templates.js'],
         dest: 'dist/amd/templates.js',
+        options: {
+          wrapper: ['define("bootstrap.wysihtml5.templates", ["handlebars.runtime", "wysihtml5"], function(HandlebarsEnv, wysihtml5) {\n\tthis["wysihtml5"] = wysihtml5;\n\tvar Handlebars = HandlebarsEnv.default;\n', '\n});']
+        }
+      },
+      "templates-fa": {
+        src: ['src/generated/templates-fa.js'],
+        dest: 'dist/amd/templates-fa.js',
         options: {
           wrapper: ['define("bootstrap.wysihtml5.templates", ["handlebars.runtime", "wysihtml5"], function(HandlebarsEnv, wysihtml5) {\n\tthis["wysihtml5"] = wysihtml5;\n\tvar Handlebars = HandlebarsEnv.default;\n', '\n});']
         }
@@ -135,7 +181,7 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('dev', ['handlebars', 'concat:commands']);
-  grunt.registerTask('amd', ['concat:all', 'wrap:wysihtml5', 'wrap:templates', 'wrap:commands', 'copy:amd', 'concat:amd']);
+  grunt.registerTask('amd', ['concat:all', 'wrap:wysihtml5', 'wrap:templates', 'wrap:templates-fa', 'wrap:commands', 'copy:amd', 'concat:amd', 'concat:amd-fa']);
   grunt.registerTask('default', ['handlebars:compile', 'concat:commands', 'amd', 'uglify', 'cssmin', 'copy:main']);
 
 };
