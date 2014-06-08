@@ -45,6 +45,10 @@ on the command line and everything should build fine.
 If you are using bower use the “bootstrap3-wysihtml5-bower” package.
 
     bower install bootstrap3-wysihtml5-bower
+    
+If using Rails, use bootstrap-wysihtml5-rails.
+
+    https://github.com/Nerian/bootstrap-wysihtml5-rails
 
 ## Examples
 
